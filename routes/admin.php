@@ -34,9 +34,10 @@ Route::middleware(['auth:sanctum'])->group(function(){
         Route::delete('/delete/{id}', 'delete');
     });
     Route::controller(SecurityNumController::class)
-    ->prefix('secuirity')->group(function(){
-        Route::get('/', 'view');
-        Route::put('/status/{id}', 'status');
-        Route::post('/add_update', 'create_update'); 
+    ->prefix('security')->group(function(){
+        Route::get('/', 'view');                  // GET /api/security
+        Route::put('/status/{id}', 'status');     // PUT /api/security/status/{id}
+        Route::post('/add_update', 'create_update'); // POST /api/security/add_update
     });
+
 });
