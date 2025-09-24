@@ -49,6 +49,7 @@ class CityController extends Controller
 
     public function create(Request $request){
         $validator = Validator::make($request->all(), [
+            'ar_name' => ['required'],
             'name' => ['required'],
             'status' => ['required', 'boolean'],
         ]);
@@ -62,6 +63,11 @@ class CityController extends Controller
             'name' => $request->name,
             'status' => $request->status,
         ]);
+        $cities->translations()->create([
+            'locale' => 'ar',
+            'key' => 'name',
+            'value' => $request->name,
+        ]); 
 
         return response()->json([
             'success' => 'You add data success',
@@ -69,12 +75,29 @@ class CityController extends Controller
     }
 
     public function modify(Request $request, $id){
-        City::
+        $validator = Validator::make($request->all(), [
+            'ar_name' => ['required'],
+            'name' => ['required'],
+            'status' => ['required', 'boolean'],
+        ]);
+        if ($validator->fails()) { // if Validate Make Error Return Message Error
+            return response()->json([
+                'errors' => $validator->errors(),
+            ],400);
+        }
+        $cities = City::
         where('id', $id)
-        ->update([
+        ->first();
+        $cities->update([
             'name' => $request->name,
             'status' => $request->status,
         ]);
+        $cities->translations()->delete();
+        $cities->translations()->create([
+            'locale' => 'ar',
+            'key' => 'name',
+            'value' => $request->name,
+        ]); 
 
         return response()->json([
             'success' => 'You update data success',
