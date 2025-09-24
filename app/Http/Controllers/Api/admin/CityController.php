@@ -12,7 +12,15 @@ class CityController extends Controller
 {
     public function view(Request $request){
         $cities = City::
-        get();
+        get()
+        ->map(function($item){
+            return [
+                'id' => $item->id,
+                'ar_name' => $item->translations->where('key', 'name')->first()?->value,
+                'name' => $item->name,
+                'status' => $item->status,
+            ];
+        });
 
         return response()->json([
             'cities' => $cities,
