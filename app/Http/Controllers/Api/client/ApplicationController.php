@@ -50,7 +50,7 @@ class ApplicationController extends Controller
             'experiences' => ['required'],
             'current_job' => ['sometimes'],
             'courses' => ['sometimes'],
-            'expected_salary' => ['sometimes', 'numeric'],
+            'expected_salary' => ['required', 'numeric'],
             'university' => ['sometimes'],
             'collage' => ['sometimes'],
             'marital' => ['required', 'in:single,married,separated'],
