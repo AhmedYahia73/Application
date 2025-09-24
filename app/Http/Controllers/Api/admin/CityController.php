@@ -66,7 +66,7 @@ class CityController extends Controller
         $cities->translations()->create([
             'locale' => 'ar',
             'key' => 'name',
-            'value' => $request->name,
+            'value' => $request->ar_name,
         ]); 
 
         return response()->json([
@@ -96,7 +96,7 @@ class CityController extends Controller
         $cities->translations()->create([
             'locale' => 'ar',
             'key' => 'name',
-            'value' => $request->name,
+            'value' => $request->ar_name,
         ]); 
 
         return response()->json([
