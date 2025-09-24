@@ -36,7 +36,7 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::controller(SecurityNumController::class)
     ->prefix('security')->group(function(){
         Route::get('/', 'view');                  // GET /api/security
-        Route::put('/status/{id}', 'status');     // PUT /api/security/status/{id}
+        Route::put('/status', 'status');     // PUT /api/security/status/{id}
         Route::post('/add_update', 'create_update'); // POST /api/security/add_update
     });
 

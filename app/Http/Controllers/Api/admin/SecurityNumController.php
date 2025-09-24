@@ -21,7 +21,7 @@ class SecurityNumController extends Controller
         ]);
     }
     
-    public function status(Request $request, $id){
+    public function status(Request $request){
         $validator = Validator::make($request->all(), [
             'status' => ['required', 'boolean'],
         ]);
