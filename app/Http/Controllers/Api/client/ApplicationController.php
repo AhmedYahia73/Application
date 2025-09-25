@@ -36,6 +36,7 @@ class ApplicationController extends Controller
             'qualifications' => $qualifications,
         ]);
     }
+ 
 
     public function send_email(Request $request){
         $validator = Validator::make($request->all(), [
