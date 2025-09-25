@@ -14,6 +14,7 @@ use App\Models\Application;
 use App\Models\City;
 use App\Models\Job;
 use App\Models\Qualification;
+use App\Models\SecurityNum;
 
 class ApplicationController extends Controller
 {
@@ -29,14 +30,21 @@ class ApplicationController extends Controller
         $qualifications = Qualification::
         select('id', 'name', 'status')
         ->get();
+        $security_status = SecurityNum::
+        where('status', 1)
+        ->first() ? true : false;
 
         return response()->json([
             'cities' => $cities,
             'jobs' => $jobs,
             'qualifications' => $qualifications,
+            'security_status' => $security_status
         ]);
     }
  
+    public function check_security(Request $request){
+        SecurityNum
+    }
 
     public function send_email(Request $request){
         $validator = Validator::make($request->all(), [
