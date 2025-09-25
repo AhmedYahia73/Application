@@ -43,7 +43,21 @@ class ApplicationController extends Controller
     }
  
     public function check_security(Request $request){
-        SecurityNum
+        $validator = Validator::make($request->all(), [
+            'security_number' => ['required'],
+        ]);
+        if ($validator->fails()) { // if Validate Make Error Return Message Error
+            return response()->json([
+                'errors' => $validator->errors(),
+            ],400);
+        }
+        $security = SecurityNum::
+        where('number', $request->security_number)
+        ->first() ? true : false;
+
+        return response()->json([
+            'security_number' => $security
+        ]);
     }
 
     public function send_email(Request $request){
@@ -71,6 +85,28 @@ class ApplicationController extends Controller
             ],400);
         }
 
+        $security_status = SecurityNum::
+        where('status', 1)
+        ->first() ? true : false;
+        if($security_status){
+            $validator = Validator::make($request->all(), [
+                'security_number' => ['required'],
+            ]);
+            if ($validator->fails()) { // if Validate Make Error Return Message Error
+                return response()->json([
+                    'errors' => $validator->errors(),
+                ],400);
+            }
+
+            $security = SecurityNum::
+            where('number', $request->security_number)
+            ->first() ? true : false;
+            if(!$security){ 
+                return response()->json([
+                    'errors' => 'security number is wrong'
+                ]); 
+            }
+        }
         $application = Application::create([
             'qualification_id' => $request->qualification_id ?? null,
             'job_id' => $request->job_id ?? null,
