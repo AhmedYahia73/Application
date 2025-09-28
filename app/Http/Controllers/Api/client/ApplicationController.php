@@ -56,7 +56,8 @@ class ApplicationController extends Controller
         ->first() ? true : false;
 
         return response()->json([
-            'security_number' => $security
+            'security_number_status' => $security,
+            'security_number' => $request->security_number
         ]);
     }
 
