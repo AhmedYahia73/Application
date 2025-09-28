@@ -31,10 +31,10 @@ class SecurityNumController extends Controller
             ],400);
         }
 
-        $secuirty_number = SecurityNum::
-        update([
-            'status' => $request->status
-        ]);
+        $security_number = SecurityNum::orderByDesc('id')
+        ->first();
+        $security_number->status = $request->status;
+        $security_number->save();
 
         return response()->json([
             'success' => $request->status ? 'active' : 'banned'
