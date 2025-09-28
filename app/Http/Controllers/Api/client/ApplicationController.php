@@ -21,15 +21,43 @@ class ApplicationController extends Controller
     public function __construct(){}
 
     public function lists(Request $request){
+        $locale = $request->locale ?? 'en';
         $cities = City::
         select('id', 'name', 'status')
-        ->get();
+        ->get()
+        ->map(function($item) use($locale) {
+            return [
+                'id' => $item->id,
+                'name' => $locale == 'ar' ? 
+                $item->translations->where('key', 'name')->first()?->value ?? $item->name
+                : $item->name,
+                'status' => $item->status,
+            ];
+        });
         $jobs = Job::
         select('id', 'name', 'status')
-        ->get();
+        ->get()
+        ->map(function($item) use($locale) {
+            return [
+                'id' => $item->id,
+                'name' => $locale == 'ar' ? 
+                $item->translations->where('key', 'name')->first()?->value ?? $item->name
+                : $item->name,
+                'status' => $item->status,
+            ];
+        });
         $qualifications = Qualification::
         select('id', 'name', 'status')
-        ->get();
+        ->get()
+        ->map(function($item) use($locale) {
+            return [
+                'id' => $item->id,
+                'name' => $locale == 'ar' ? 
+                $item->translations->where('key', 'name')->first()?->value ?? $item->name
+                : $item->name,
+                'status' => $item->status,
+            ];
+        });
         $security_status = SecurityNum::
         where('status', 1)
         ->first() ? true : false;
