@@ -178,6 +178,7 @@ class ApplicationController extends Controller
             'city' => $application?->city?->name, 
         ];
         Mail::to('wegoofficial.eg@gmail.com')->send(new ApplicationMail($application));
+        Mail::to('hr@wegostation.com')->send(new ApplicationMail($application));
 
         return response()->json([
             'success' => 'You send email success'
