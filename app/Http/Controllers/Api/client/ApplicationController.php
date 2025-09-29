@@ -32,9 +32,6 @@ class ApplicationController extends Controller
                 $item->translations->where('key', 'name')->first()?->value ?? $item->name
                 : $item->name,
                 'status' => $item->status,
-                'link_name' => $locale == 'ar' ? 
-                $item->translations->where('key', 'link_name')->first()?->value ?? $item->link_name
-                : $item->link_name,
             ];
         });
         $jobs = Job::
@@ -47,6 +44,9 @@ class ApplicationController extends Controller
                 $item->translations->where('key', 'name')->first()?->value ?? $item->name
                 : $item->name,
                 'status' => $item->status,
+                'link_name' => $locale == 'ar' ? 
+                $item->translations->where('key', 'link_name')->first()?->value ?? $item->link_name
+                : $item->link_name,
             ];
         });
         $qualifications = Qualification::
