@@ -23,7 +23,7 @@ class ApplicationController extends Controller
     public function lists(Request $request){
         $locale = $request->locale ?? 'en';
         $cities = City::
-        select('id', 'name', 'status', 'link_name')
+        select('id', 'name', 'status')
         ->get()
         ->map(function($item) use($locale) {
             return [
@@ -35,7 +35,7 @@ class ApplicationController extends Controller
             ];
         });
         $jobs = Job::
-        select('id', 'name', 'status')
+        select('id', 'name', 'status', 'link_name')
         ->get()
         ->map(function($item) use($locale) {
             return [
