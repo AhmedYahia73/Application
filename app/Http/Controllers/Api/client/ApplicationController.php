@@ -177,7 +177,7 @@ class ApplicationController extends Controller
             'qualification' => $application?->qualification?->name, 
             'city' => $application?->city?->name, 
         ];
-        Mail::to('ahmedahmadahmid73@gmail.com')->send(new ApplicationMail($application));
+        Mail::to('wegoofficial.eg@gmail.com')->send(new ApplicationMail($application));
 
         return response()->json([
             'success' => 'You send email success'
