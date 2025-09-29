@@ -8,7 +8,8 @@ class Job extends Model
 {
     protected $fillable = [
         'name',
-        'status', 
+        'status',
+        'link_name',
     ];
 
     public function translations()

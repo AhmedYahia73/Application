@@ -23,7 +23,7 @@ class ApplicationController extends Controller
     public function lists(Request $request){
         $locale = $request->locale ?? 'en';
         $cities = City::
-        select('id', 'name', 'status')
+        select('id', 'name', 'status', 'link_name')
         ->get()
         ->map(function($item) use($locale) {
             return [
@@ -32,6 +32,9 @@ class ApplicationController extends Controller
                 $item->translations->where('key', 'name')->first()?->value ?? $item->name
                 : $item->name,
                 'status' => $item->status,
+                'link_name' => $locale == 'ar' ? 
+                $item->translations->where('key', 'link_name')->first()?->value ?? $item->link_name
+                : $item->link_name,
             ];
         });
         $jobs = Job::

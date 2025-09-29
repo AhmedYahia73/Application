@@ -23,6 +23,8 @@ class Application extends Model
         'collage',
         'marital',
         'children',
+        'upload_cv',
+        'link',
     ];
  
     public function qualification(){

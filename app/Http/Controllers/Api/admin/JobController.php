@@ -17,6 +17,7 @@ class JobController extends Controller
             return [
                 'id' => $item->id,
                 'ar_name' => $item->translations->where('key', 'name')->first()?->value,
+                'ar_link_name' => $item->translations->where('key', 'link_name')->first()?->value,
                 'name' => $item->name,
                 'status' => $item->status,
             ];
@@ -51,6 +52,8 @@ class JobController extends Controller
         $validator = Validator::make($request->all(), [
             'ar_name' => ['required'],
             'name' => ['required'],
+            'link_name' => ['required'],
+            'ar_link_name' => ['required'],
             'status' => ['required', 'boolean'],
         ]);
         if ($validator->fails()) { // if Validate Make Error Return Message Error
@@ -61,12 +64,18 @@ class JobController extends Controller
         $jobs = Job::
         create([
             'name' => $request->name,
+            'link_name' => $request->link_name,
             'status' => $request->status,
         ]);
         $jobs->translations()->create([
             'locale' => 'ar',
             'key' => 'name',
             'value' => $request->ar_name,
+        ]); 
+        $jobs->translations()->create([
+            'locale' => 'ar',
+            'key' => 'link_name',
+            'value' => $request->ar_link_name,
         ]); 
 
         return response()->json([
@@ -78,6 +87,8 @@ class JobController extends Controller
         $validator = Validator::make($request->all(), [
             'ar_name' => ['required'],
             'name' => ['required'],
+            'link_name' => ['required'],
+            'ar_link_name' => ['required'],
             'status' => ['required', 'boolean'],
         ]);
         if ($validator->fails()) { // if Validate Make Error Return Message Error
@@ -91,12 +102,18 @@ class JobController extends Controller
         $jobs->update([
             'name' => $request->name,
             'status' => $request->status,
+            'link_name' => $request->link_name,
         ]);
         $jobs->translations()->delete();
         $jobs->translations()->create([
             'locale' => 'ar',
             'key' => 'name',
             'value' => $request->ar_name,
+        ]); 
+        $jobs->translations()->create([
+            'locale' => 'ar',
+            'key' => 'link_name',
+            'value' => $request->ar_link_name,
         ]); 
 
         return response()->json([
