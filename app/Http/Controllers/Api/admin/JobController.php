@@ -18,6 +18,7 @@ class JobController extends Controller
                 'id' => $item->id,
                 'ar_name' => $item->translations->where('key', 'name')->first()?->value,
                 'ar_link_name' => $item->translations->where('key', 'link_name')->first()?->value,
+                'link_name' => $item->link_name,
                 'name' => $item->name,
                 'status' => $item->status,
             ];
