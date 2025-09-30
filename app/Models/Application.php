@@ -26,6 +26,11 @@ class Application extends Model
         'upload_cv',
         'link',
     ];
+    protected $appends = ['cv_link'];
+ 
+    public function getCvLinkAttribute(){
+        return url('storage/' . $this->attributes['upload_cv']);
+    }
  
     public function qualification(){
         return $this->belongsTo(Qualification::class, 'qualification_id');

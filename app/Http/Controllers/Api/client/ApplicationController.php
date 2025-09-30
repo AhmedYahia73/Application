@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\Validator;
 
 use App\Mail\ApplicationMail;
 use Illuminate\Support\Facades\Mail;
+use App\trait\TraitImage;
 
 use App\Models\Application;
-
 use App\Models\City;
 use App\Models\Job;
 use App\Models\Qualification;
@@ -19,6 +19,7 @@ use App\Models\SecurityNum;
 class ApplicationController extends Controller
 {
     public function __construct(){}
+    use TraitImage;
 
     public function lists(Request $request){
         $locale = $request->locale ?? 'en';
@@ -110,6 +111,8 @@ class ApplicationController extends Controller
             'collage' => ['sometimes'],
             'marital' => ['required', 'in:single,married,separated'],
             'children' => ['required_if:married,separated,', 'numeric'],
+            'upload_cv' => ['required'],
+            'link' => ['sometimes']
         ]);
         if ($validator->fails()) { // if Validate Make Error Return Message Error
             return response()->json([
@@ -139,6 +142,7 @@ class ApplicationController extends Controller
                 ]); 
             }
         }
+        $cv = $this->upload($request, 'upload_cv', 'cvs');
         $application = Application::create([
             'qualification_id' => $request->qualification_id ?? null,
             'job_id' => $request->job_id ?? null,
@@ -156,6 +160,8 @@ class ApplicationController extends Controller
             'collage' => $request->collage ?? null,
             'marital' => $request->marital ?? null,
             'children' => $request->children ?? null,
+            'upload_cv' => $cv,
+            'link' => $request->link ?? null,
         ]);
         $application = Application::
         with('job', 'qualification', 'city')
@@ -179,6 +185,8 @@ class ApplicationController extends Controller
             'job' => $application?->job?->name, 
             'qualification' => $application?->qualification?->name, 
             'city' => $application?->city?->name, 
+            'upload_cv' => $cv,
+            'link' => $request->link ?? null,
         ];
         Mail::to('wegoofficial.eg@gmail.com')->send(new ApplicationMail($application));
         Mail::to('hr@wegostation.com')->send(new ApplicationMail($application));

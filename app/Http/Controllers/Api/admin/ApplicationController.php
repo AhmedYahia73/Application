@@ -33,6 +33,9 @@ class ApplicationController extends Controller
                 'qualification' => $item?->qualification?->name,
                 'job' => $item?->job?->name,
                 'city' => $item?->city?->name,
+                'link_name' => $item?->job?->link_name,
+                'link' => $item->link,
+                'cv' => $item->cv_link,
             ];
         });
 

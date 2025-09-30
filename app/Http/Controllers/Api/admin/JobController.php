@@ -52,8 +52,8 @@ class JobController extends Controller
         $validator = Validator::make($request->all(), [
             'ar_name' => ['required'],
             'name' => ['required'],
-            // 'link_name' => ['required'],
-            // 'ar_link_name' => ['required'],
+            'link_name' => ['required'],
+            'ar_link_name' => ['required'],
             'status' => ['required', 'boolean'],
         ]);
         if ($validator->fails()) { // if Validate Make Error Return Message Error
@@ -87,8 +87,8 @@ class JobController extends Controller
         $validator = Validator::make($request->all(), [
             'ar_name' => ['required'],
             'name' => ['required'],
-            // 'link_name' => ['required'],
-            // 'ar_link_name' => ['required'],
+            'link_name' => ['required'],
+            'ar_link_name' => ['required'],
             'status' => ['required', 'boolean'],
         ]);
         if ($validator->fails()) { // if Validate Make Error Return Message Error
