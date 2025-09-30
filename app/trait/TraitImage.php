@@ -13,32 +13,11 @@ trait TraitImage
 
     public function upload(Request $request,$fileName = 'image',$directory){
         if($request->has($fileName)){// if Request has a Image
-            $imageFile = $request->file($fileName);
-
-            $manager = new ImageManager(new GdDriver());
-            $img = $manager->read($imageFile->getPathname());
-
-            $img = $img->scale(width: 1920);
-
-            // Save to a temporary file with reduced quality
-            $image_path = $directory . '/' . uniqid() . '.jpg';
-            Storage::disk('public')->makeDirectory($directory);
-            $path = storage_path('app/public/' . $image_path);
-            $quality = 90;
-
-            // Try reducing quality until size is under 2MB (1024 KB)
-            do {
-                $img->save($path, $quality);
-                $filesize = filesize($path) / 1024; // in KB
-                $quality -= 5;
-            } while ($filesize > 1024 && $quality > 10);
-
-
-            // $uploadImage = new request();
-            // $imagePath = $request->file($fileName)->store($directory,'public'); // Take Image from Request And Save inStorage;
-            return $image_path;
+            $uploadImage = new request();
+            $imagePath = $request->file($fileName)->store($directory,'public'); // Take Image from Request And Save inStorage;
+            return $imagePath;
         }
-        return Null;
+        return Null; 
     }
     
     public function update_image(Request $request, $old_image_path,$fileName = 'image',$directory){
