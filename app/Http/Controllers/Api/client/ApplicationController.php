@@ -119,7 +119,15 @@ class ApplicationController extends Controller
                 'errors' => $validator->errors(),
             ],400);
         }
-
+        $application = Application::
+        where('phone', $request->phone)
+        ->where('job_id', $request->job_id)
+        ->first();
+        if(!empty($application)){
+            return response()->json([
+                'errors' => 'You have applied for this job before'
+            ], 400);
+        }
         $security_status = SecurityNum::
         where('status', 1)
         ->first() ? true : false;

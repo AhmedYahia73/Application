@@ -16,6 +16,7 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::controller(ApplicationController::class)
     ->prefix('application')->group(function(){
         Route::get('/', 'view');
+        Route::delete('/delete/{id}', 'delete_application');
     });
     Route::controller(CityController::class)
     ->prefix('city')->group(function(){

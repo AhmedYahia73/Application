@@ -43,4 +43,13 @@ class ApplicationController extends Controller
             'applications' => $applications
         ]);
     }
+
+    public function delete_application(Request $request, $id){
+        Application::where('id', $id)
+        ->delete();
+
+        return response()->json([
+            'success' => 'You delete data success'
+        ]);
+    }
 }
