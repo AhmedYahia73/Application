@@ -43,6 +43,7 @@ class ApplicationController extends Controller
             'applications' => $applications
         ]);
     }
+    
     public function delete_application(Request $request, $id){
         Application::where('id', $id)
         ->delete();
