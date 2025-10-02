@@ -38,12 +38,11 @@ class ApplicationController extends Controller
                 'cv' => $item->cv_link,
             ];
         });
-
+ 
         return response()->json([
             'applications' => $applications
         ]);
     }
-
     public function delete_application(Request $request, $id){
         Application::where('id', $id)
         ->delete();
