@@ -16,6 +16,8 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::controller(ApplicationController::class)
     ->prefix('application')->group(function(){
         Route::get('/', 'view');
+        Route::get('/favourites', 'favourites');
+        Route::put('/status/{id}', 'status');
         Route::delete('/delete/{id}', 'delete_application');
     });
     Route::controller(CityController::class)

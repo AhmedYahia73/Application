@@ -25,6 +25,7 @@ class Application extends Model
         'children',
         'upload_cv',
         'link',
+        'favourite',
     ];
     protected $appends = ['cv_link'];
  
